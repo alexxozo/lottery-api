@@ -39,6 +39,7 @@ for testing we can change a bit the code to simulate a winning. (or who knows, m
 
 ## Required to run:
 - docker running in the background
+- php 8.0 for artisan commands
 
 ## How to run the project locally:
 - run in main folder the command ```./vendor/bin/sail up```
