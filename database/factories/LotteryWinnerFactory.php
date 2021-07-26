@@ -2,21 +2,19 @@
 
 namespace Database\Factories;
 
-use App\DTO\LotterySelectionDTO;
-use App\Models\Ballot;
-use App\Models\Lottery;
-use App\Models\Profile;
+use App\Models\LotteryDraw;
+use App\Models\LotteryWinner;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use phpDocumentor\Reflection\Utils;
 
-class BallotFactory extends Factory
+class LotteryWinnerFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = Ballot::class;
+    protected $model = LotteryWinner::class;
 
     /**
      * Define the model's default state.
@@ -26,12 +24,13 @@ class BallotFactory extends Factory
     public function definition()
     {
         return [
-            'lottery_id' => function () {
-                return Lottery::factory()->create()->id;
-            },
             'user_id' => function () {
-                return Profile::factory()->create()->user->id;
+                return User::factory()->create();
             },
+            'lottery_draw_id' => function () {
+                return LotteryDraw::factory()->create();
+            },
+            'amount' => $this->faker->randomNumber(6)
         ];
     }
 }

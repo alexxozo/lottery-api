@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Casts\LotterySelectionCast;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -13,13 +12,22 @@ class Ballot extends Model
 
     protected $table = 'ballots';
 
-    protected $casts = [
-        'lucky_selection' => LotterySelectionCast::class
-    ];
+    protected $with = ['numbers'];
 
-    protected $fillable = [
-        'user_id',
-        'lottery_id',
-        'lucky_selection'
-    ];
+    protected $guarded = [];
+
+    public function numbers()
+    {
+        return $this->hasMany(BallotNumber::class);
+    }
+
+    public function lottery()
+    {
+        return $this->belongsTo(Lottery::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

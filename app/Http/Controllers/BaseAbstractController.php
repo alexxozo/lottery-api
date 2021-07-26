@@ -53,7 +53,6 @@ class BaseAbstractController extends Controller
      * @param Request $request
      * @return JsonResponse
      */
-
     public function store(Request $request)
     {
         $fields = $request->toArray();
@@ -80,7 +79,6 @@ class BaseAbstractController extends Controller
      * @param int $id
      * @return Response
      */
-
     public function show($id)
     {
         $obj = $this->classname::find($id);
@@ -97,7 +95,6 @@ class BaseAbstractController extends Controller
      * @param int $id
      * @return Response
      */
-
     public function edit($id)
     {
         return null;
@@ -111,7 +108,6 @@ class BaseAbstractController extends Controller
      * @param int $id
      * @return JsonResponse
      */
-
     public function update(Request $request, $id)
     {
         $fields = $request->toArray();

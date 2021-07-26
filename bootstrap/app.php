@@ -26,6 +26,10 @@ $app = new Illuminate\Foundation\Application(
 |
 */
 
+//$app->singleton(\App\Helpers\ManageLotteriesHelper::class,
+//    \App\Helpers\ManageLotteriesHelper::class
+//);
+
 $app->singleton(
     Illuminate\Contracts\Http\Kernel::class,
     App\Http\Kernel::class

@@ -26,10 +26,15 @@ class LotteryType extends Model
         $this->rules = $rules;
     }
 
+    public function toArray(): array
+    {
+        return ['id' => $this->id, 'name' => $this->name, 'rules' => $this->rules];
+    }
+
     public static function getAll()
     {
         return [
-            new LotteryType(LotteryType::SIX_OF_FORTYNINE, 'SIX OUT OF FORTYNINE', ['maxLength' => 6, 'range' => [1, 49]]),
+            new LotteryType(LotteryType::SIX_OF_FORTYNINE, 'sixOfFortynine', ['maxLength' => 6, 'range' => [1, 49]]),
         ];
     }
 
@@ -37,7 +42,7 @@ class LotteryType extends Model
     {
         foreach (LotteryType::getAll() as $item) {
             if ($item->id == $id) {
-                return $item;
+                return $item->toArray();
             }
         }
         return null;

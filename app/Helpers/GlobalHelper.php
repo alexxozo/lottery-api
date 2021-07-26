@@ -4,7 +4,7 @@
 namespace App\Helpers;
 
 
-class HelperFunctions
+class GlobalHelper
 {
     /**
      * @param $items

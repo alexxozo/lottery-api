@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateLotteryDrawsTable extends Migration
+class CreateLotteriesDrawsNumbers extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreateLotteryDrawsTable extends Migration
      */
     public function up()
     {
-        Schema::create('lottery_draws', function (Blueprint $table) {
+        Schema::create('lotteries_draws_numbers', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('lottery_id');
-            $table->foreign('lottery_id')->references('id')->on('lotteries');
+            $table->unsignedBigInteger('lottery_draw_id');
+            $table->foreign('lottery_draw_id')->references('id')->on('lottery_draws');
+            $table->unsignedInteger('number');
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
@@ -29,6 +29,6 @@ class CreateLotteryDrawsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('lottery_draws');
+        Schema::dropIfExists('lottery_draws_numbers');
     }
 }

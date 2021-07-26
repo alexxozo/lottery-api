@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateLotteryDrawsTable extends Migration
+class CreateNotificationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,13 @@ class CreateLotteryDrawsTable extends Migration
      */
     public function up()
     {
-        Schema::create('lottery_draws', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('lottery_id');
-            $table->foreign('lottery_id')->references('id')->on('lotteries');
+        Schema::create('notifications', function (Blueprint $table) {
+            $table->uuid('id')->primary();
+            $table->string('type');
+            $table->morphs('notifiable');
+            $table->text('data');
+            $table->timestamp('read_at')->nullable();
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
@@ -29,6 +30,6 @@ class CreateLotteryDrawsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('lottery_draws');
+        Schema::dropIfExists('notifications');
     }
 }

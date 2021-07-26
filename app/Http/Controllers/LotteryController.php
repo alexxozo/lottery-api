@@ -46,7 +46,7 @@ class LotteryController extends BaseAbstractController
 
         $fields = $request->toArray();
         $rules = [
-            'numbers_list' => 'required|array',
+            'selection' => 'required|array',
         ];
         $validator = Validator::make($fields, $rules);
         $validatorErrors = $validator->errors()->all();
@@ -58,6 +58,40 @@ class LotteryController extends BaseAbstractController
                 return response()->json(["message" => $result["errors"]], env("HTTP_BUSINESS_ERROR"));
             }
             return response()->json(["obj_id" => $result['obj_id']], env("HTTP_SUCCESS"));
+        } else {
+            return response()->json([['message' => $validatorErrors]], env("HTTP_VALIDATION_ERROR"));
+        }
+    }
+
+    /**
+     * Show the winner ballot for a specific date.
+     *
+     * @param $lotteryId
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function winnerBallot($lotteryId, Request $request)
+    {
+        $lottery = Lottery::find($lotteryId);
+        if ($lottery === null) {
+            return response()->json(['message' => 'Lottery not found.'], env('HTTP_NOT_FOUND'));
+        }
+
+        $fields = $request->all();
+        $rules = [
+            'year' => 'required|numeric',
+            'month' => 'required|numeric',
+            'day' => 'required|numeric'
+        ];
+        $validator = Validator::make($fields, $rules);
+        $validatorErrors = $validator->errors()->all();
+        if (sizeof($validatorErrors) == 0) {
+            $fields['lottery'] = $lottery;
+            $result = $this->service->winnerBallot($fields);
+            if (sizeof($result["errors"]) > 0) {
+                return response()->json(["message" => $result["errors"]], env("HTTP_BUSINESS_ERROR"));
+            }
+            return response()->json(["ballot" => $result['ballot']], env("HTTP_SUCCESS"));
         } else {
             return response()->json([['message' => $validatorErrors]], env("HTTP_VALIDATION_ERROR"));
         }

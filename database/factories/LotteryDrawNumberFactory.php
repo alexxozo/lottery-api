@@ -2,20 +2,18 @@
 
 namespace Database\Factories;
 
-use App\DTO\LotterySelectionDTO;
-use App\Models\Lottery;
 use App\Models\LotteryDraw;
-use App\Models\Profile;
+use App\Models\LotteryDrawNumber;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class LotteryDrawFactory extends Factory
+class LotteryDrawNumberFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = LotteryDraw::class;
+    protected $model = LotteryDrawNumber::class;
 
     /**
      * Define the model's default state.
@@ -25,9 +23,10 @@ class LotteryDrawFactory extends Factory
     public function definition()
     {
         return [
-            'lottery_id' => function () {
-                return Lottery::factory()->create()->id;
+            'lottery_draw_id' => function () {
+                return LotteryDraw::factory()->create()->id;
             },
+            'number' => $this->faker->randomNumber(2)
         ];
     }
 }

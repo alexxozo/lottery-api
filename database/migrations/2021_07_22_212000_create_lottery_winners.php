@@ -19,7 +19,9 @@ class CreateLotteryWinners extends Migration
             $table->foreign('lottery_draw_id')->references('id')->on('lottery_draws');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
+            $table->double('amount')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

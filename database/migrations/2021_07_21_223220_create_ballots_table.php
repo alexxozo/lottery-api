@@ -19,7 +19,6 @@ class CreateBallotsTable extends Migration
             $table->foreign('lottery_id')->references('id')->on('lotteries');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
-            $table->json('lucky_selection');
             $table->timestamps();
             $table->softDeletes();
         });

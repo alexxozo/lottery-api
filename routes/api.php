@@ -3,6 +3,8 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BallotController;
 use App\Http\Controllers\LotteryController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,15 +24,16 @@ Route::middleware('auth:sanctum')->get("/logout", [AuthController::class, "logou
 Route::post("/register", [AuthController::class, "register"]);
 
 // Admin Routes
-
 Route::group(['middleware' => ['auth:sanctum', 'auth.admin'], 'prefix' => 'resource-management'], function () {
     Route::resource('lotteries', LotteryController::class);
-//    Route::resource('profiles', ProfileController::class);
-//    Route::resource('users', UserController::class);
+    Route::resource('profiles', ProfileController::class);
+    Route::resource('users', UserController::class);
     Route::resource('ballots', BallotController::class);
+
 });
 
 // Participant Routes
 Route::middleware('auth:sanctum')->group(function () {
-    Route::post('lotteries/{lottery}/register', [LotteryController::class, 'register']);
+    Route::post('lotteries/{lotteryId}/register', [LotteryController::class, 'register']);
+    Route::get('lotteries/{lotteryId}/winner-ballot', [LotteryController::class, 'winnerBallot']);
 });
